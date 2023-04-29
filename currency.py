@@ -24,9 +24,15 @@ async def main(currency:str, date:datetime):
 async def currency_parser(jsonfile:dict, currency:str, date):
      for currencies in jsonfile["exchangeRate"]:
          if currencies["currency"] == currency.upper():
-            print(separator)
-            print(f"Поточна дата : {date}\nБазова валюта : {currencies['baseCurrency']}\nВалюта : {currencies['currency']}\nКурс продажу НБУ : {currencies['saleRateNB']}\nКурс продажу ПриватБанку : {currencies['saleRate']}\nКурс купівлі ПриватБанку : {currencies['purchaseRate']}")
-            print(separator)
+            if currency.upper() in ["USD","EUR"]:
+                print(separator)
+                print(f"Поточна дата : {date}\nБазова валюта : {currencies['baseCurrency']}\nВалюта : {currencies['currency']}\nКурс продажу НБУ : {currencies['saleRateNB']}\nКурс продажу ПриватБанку : {currencies['saleRate']}\nКурс купівлі ПриватБанку : {currencies['purchaseRate']}")
+                print(separator)
+            else:
+                print(separator)
+                print(f"Поточна дата : {date}\nБазова валюта : {currencies['baseCurrency']}\nВалюта : {currencies['currency']}\nКурс продажу\купiвлi НБУ : {currencies['saleRateNB']} грн")
+                print(separator)
+                                                                #{'baseCurrency': 'UAH', 'currency': 'CAD', 'saleRateNB': 26.8541, 'purchaseRateNB': 26.8541}
 
 async def data_parser(days:int,currency:str):
     if days > 10 or days <=0:
@@ -63,3 +69,5 @@ if __name__== "__main__":
         pass
 
 
+#{'baseCurrency': 'UAH', 'currency': 'CAD', 'saleRateNB': 26.8541, 'purchaseRateNB': 26.8541}
+#{'baseCurrency': 'UAH', 'currency': 'USD', 'saleRateNB': 36.5686, 'purchaseRateNB': 36.5686, 'saleRate': 37.72, 'purchaseRate': 37.22}
