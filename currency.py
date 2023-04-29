@@ -8,6 +8,10 @@ from prompt_toolkit.completion import WordCompleter
 
 import aiohttp
 
+
+class BigValue(Exception):
+    pass
+
 separator = "========================================"
 
 async def main(currency:str, date:datetime):
@@ -27,6 +31,9 @@ async def currency_parser(jsonfile:dict, currency:str, date):
 async def data_parser(days:int,currency:str):
     if days > 10 or days <=0:
         print(f"\nYOU SET BIG OR SMALL VALUE FOR DAYS\nTRY ENTER VALUE FROM 1 TO 10\n")
+        raise BigValue
+        
+
     if days == 1:
         currentDate = datetime.now().date()
         date2 = currentDate.strftime("%d.%m.%Y")
@@ -50,6 +57,9 @@ if __name__== "__main__":
     print("\nPush TAB\SPACE in input to see all currencies ID!\n")
     CURRENCY_INPUT = prompt('Enter currency: ', completer=currency_completer)
     DAYS_INPUT =  int(prompt("Enter days: ",completer=days_completer))
-    a = asyncio.run(data_parser(DAYS_INPUT,CURRENCY_INPUT))
+    try:
+        a = asyncio.run(data_parser(DAYS_INPUT,CURRENCY_INPUT))
+    except BigValue:
+        pass
 
 
