@@ -24,7 +24,7 @@ async def currency_parser(jsonfile:dict, currency:str, date):
             print(f"Поточна дата : {date}\nБазова валюта : {currencies['baseCurrency']}\nВалюта : {currencies['currency']}\nКурс продажу НБУ : {currencies['saleRateNB']}\nКурс продажу ПриватБанку : {currencies['saleRate']}\nКурс купівлі ПриватБанку : {currencies['purchaseRate']}")
             print(separator)
 
-async def data_parser(days,currency):
+async def data_parser(days:int,currency:str):
     if days > 10 or days <=0:
         print(f"\nYOU SET BIG OR SMALL VALUE FOR DAYS\nTRY ENTER VALUE FROM 1 TO 10\n")
     if days == 1:
@@ -41,13 +41,15 @@ async def data_parser(days,currency):
 
 
 currency_completer = WordCompleter(['USD', 'AUD', 'AZN', 'BYN', "CAD", "CHF", "CNY", "CZK", "DKK", "EUR", "GBP", "ILS","JPY","KZT","MDL","NOK","PLN","SEK","SGD","TMT","TRY","UZS","XAU"])
-days_completer = [i for i in range(0,11)]
+days_completer = WordCompleter([str(i) for i in range(1,11)])
 
 if __name__== "__main__":
     # curr = sys.argv[1]
     if platform.system() == 'Windows':
             asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-    print("Push SPACE in input to see all currencies ID!")
+    print("\nPush TAB\SPACE in input to see all currencies ID!\n")
     CURRENCY_INPUT = prompt('Enter currency: ', completer=currency_completer)
-    DAYS_INPUT = prompt("Enter days: ",completer=days_completer)
+    DAYS_INPUT =  int(prompt("Enter days: ",completer=days_completer))
     a = asyncio.run(data_parser(DAYS_INPUT,CURRENCY_INPUT))
+
+
