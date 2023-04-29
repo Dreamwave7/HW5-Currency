@@ -61,13 +61,13 @@ if __name__== "__main__":
     if platform.system() == 'Windows':
             asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
     print("\nPush TAB\SPACE in input to see all currencies ID!\n")
+
     CURRENCY_INPUT = prompt('Enter currency: ', completer=currency_completer)
     DAYS_INPUT =  int(prompt("Enter days: ",completer=days_completer))
     try:
         a = asyncio.run(data_parser(DAYS_INPUT,CURRENCY_INPUT))
     except BigValue:
         pass
-
 
 #{'baseCurrency': 'UAH', 'currency': 'CAD', 'saleRateNB': 26.8541, 'purchaseRateNB': 26.8541}
 #{'baseCurrency': 'UAH', 'currency': 'USD', 'saleRateNB': 36.5686, 'purchaseRateNB': 36.5686, 'saleRate': 37.72, 'purchaseRate': 37.22}
